@@ -1,0 +1,9 @@
+.upload {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.upload:focus + label {
+    outline: 4px solid #71d388;
+}
