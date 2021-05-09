@@ -8,7 +8,7 @@ import {
     Card,
     Alert,
 } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../Contexts/useAuthContext";
 import { useInputChange } from "../../hooks/useInputChange";
 import ContainerComponent from "./ContainerComponent";
@@ -35,7 +35,7 @@ const Signup = () => {
             contextValue
         ) {
             if (password.value !== confirmPassword.value) {
-            	setLoading(false);
+                setLoading(false);
                 return setError("Password don't match");
             }
             try {
