@@ -1,11 +1,10 @@
 import { render } from "react-dom";
-import App from "./Components/App";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
+import "./styles/index.css";
 
 render(
     <BrowserRouter>
-        <App />
+        <h1>hello</h1>
     </BrowserRouter>,
     document.getElementById("root")
 );
