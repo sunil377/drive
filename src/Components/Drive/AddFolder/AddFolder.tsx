@@ -1,10 +1,7 @@
 import { FormEvent, useState, FC, useRef, Suspense, lazy } from "react";
-import { Button, Form } from "react-bootstrap";
 import { useAuth } from "../../../Contexts/useAuthContext";
-import { InvalidFeedbackComponent } from "../../InvalidFeedback/InvalidFeedbackComponent";
+
 import { useInputChange } from "../../../hooks/useInputChange";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 
 const ModalComponent = lazy(() => import("../../Modal/ModalComponent"));
 
@@ -53,10 +50,10 @@ const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
 
     return (
         <>
-            <Button variant="outline-success mx-2" onClick={handleModalShow}>
+            <button onClick={handleModalShow}>
                 <span className="sr-only">open Modal for Adding Folder</span>
-                <FontAwesomeIcon icon={faFolderPlus} />
-            </Button>
+                add folder
+            </button>
 
             {showModal && (
                 <ModalComponent
@@ -64,21 +61,17 @@ const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
                     onCancel={handleModalClose}
                     loading={loading}
                 >
-                    <Form.Group>
-                        <Form.Label htmlFor="folderName">
-                            Folder Name:{" "}
-                        </Form.Label>
-                        <Form.Control
+                    <>
+                        <label htmlFor="folderName">Folder Name: </label>
+                        <input
                             id="folderName"
                             type="text"
                             required
                             ref={folderRef}
-                            isInvalid={error != ""}
                             {...folderName}
                             autoFocus={true}
                         />
-                        <InvalidFeedbackComponent error={error} />
-                    </Form.Group>
+                    </>
                 </ModalComponent>
             )}
         </>

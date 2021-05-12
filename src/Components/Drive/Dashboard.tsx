@@ -1,5 +1,4 @@
 import { lazy } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { useFolder } from "../../hooks/useFolder";
 import AddFile from "./AddFile/AddFile";
 import AddFolder from "./AddFolder/AddFolder";
@@ -12,22 +11,14 @@ const Dashboard = () => {
     const { folders, selectedFolder, currentPath, files } = useFolder();
 
     return (
-        <Container className="mb-2">
-            <Row>
-                <Col xs={9}>
-                    <BreadcrumbComponent currentFolderId={selectedFolder} />
-                </Col>
-                <Col
-                    xs={3}
-                    className="d-flex justify-content-end align-items-start"
-                >
-                    <AddFile currentPath={currentPath} />
-                    <AddFolder
-                        currentFolderId={selectedFolder}
-                        currentPath={currentPath}
-                    />
-                </Col>
-            </Row>
+        <>
+            <BreadcrumbComponent currentFolderId={selectedFolder} />
+
+            <AddFile currentPath={currentPath} />
+            <AddFolder
+                currentFolderId={selectedFolder}
+                currentPath={currentPath}
+            />
 
             {folders.length > 0 &&
                 folders.map(({ name, id }) => (
@@ -36,13 +27,11 @@ const Dashboard = () => {
 
             {folders.length > 0 && files.length > 0 && <hr />}
 
-            <Row>
-                {files.length > 0 &&
-                    files.map(({ id, name, url }) => (
-                        <File name={name} key={id} url={url} />
-                    ))}
-            </Row>
-        </Container>
+            {files.length > 0 &&
+                files.map(({ id, name, url }) => (
+                    <File name={name} key={id} url={url} />
+                ))}
+        </>
     );
 };
 

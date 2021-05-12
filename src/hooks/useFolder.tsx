@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useAuth } from "../Contexts/useAuthContext";
-import { database } from "../firebase";
+import { database } from "../lib/firebase";
 
 export const useFolder = () => {
     const [folders, setFolders] = useState<folderType[]>([]);
-    const [selectedFolder, setSelectedFolder] = useState<selectedFolderType>(
-        null
-    );
+    const [selectedFolder, setSelectedFolder] =
+        useState<selectedFolderType>(null);
     const [currentPath, setCurrentPath] = useState<currentPathType>([]);
     const [files, setFiles] = useState<fileType[]>([]);
 

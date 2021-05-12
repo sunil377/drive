@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { Dispatch, SetStateAction } from "react";
-import { database, storage, userType } from "../../../firebase";
+import { database, storage, userType } from "../../../lib/firebase";
 import { uploadFileType } from "../../Drive/AddFile/AddFile";
 
 export const createFile: handleUploadFileChangeType = ({

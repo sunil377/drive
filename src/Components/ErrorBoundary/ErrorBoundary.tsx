@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { Alert, Container } from "react-bootstrap";
 
 export class ErrorBoundary extends Component {
     state = {
@@ -12,9 +11,7 @@ export class ErrorBoundary extends Component {
 
     render() {
         return this.state.hasError ? (
-            <Container>
-                <Alert variant="danger"> something error happen </Alert>
-            </Container>
+            <h1>something error happen</h1>
         ) : (
             this.props.children
         );

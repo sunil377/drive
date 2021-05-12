@@ -1,17 +1,16 @@
-import { Button } from "react-bootstrap";
 import { useState } from "react";
-import { useAuth } from "../../Contexts/useAuthContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { useHistory } from "react-router";
+import { Auth, provider } from "../../lib/firebase";
 
 const GoogleSignInComponent = () => {
-    const contextValue = useAuth();
     const [loading, setLoading] = useState(false);
+    const history = useHistory();
 
     const handleGoogleSignUp = async () => {
         setLoading(true);
         try {
-            await contextValue?.signupWithGoogle();
+            await Auth.signInWithPopup(provider);
+            history.push("/");
         } catch ({ message }) {
             alert(message);
         } finally {
@@ -19,15 +18,7 @@ const GoogleSignInComponent = () => {
         }
     };
 
-    return (
-        <Button variant="outline-dark border-0" disabled={loading}>
-            <FontAwesomeIcon
-                icon={faGoogle}
-                onClick={handleGoogleSignUp}
-                size="2x"
-            />
-        </Button>
-    );
+    return <button disabled={loading}>google icon</button>;
 };
 
 export default GoogleSignInComponent;

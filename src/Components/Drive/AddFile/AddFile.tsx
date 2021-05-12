@@ -1,10 +1,7 @@
-import { faFileUpload } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPortal } from "react-dom";
 import { useAuth } from "../../../Contexts/useAuthContext";
 import { ChangeEvent, lazy, useState } from "react";
-import { upLoadTask } from "../../../firebase";
-import "./style.css";
+import { upLoadTask } from "../../../lib/firebase";
 
 const ToastComponent = lazy(() => import("../ToastComponent"));
 
@@ -52,7 +49,7 @@ const AddFile = ({ currentPath }: { currentPath: string[] }) => {
             />
             <label htmlFor="file" className="btn btn-outline-success">
                 <span className="sr-only">add Image</span>
-                <FontAwesomeIcon icon={faFileUpload} />
+                file upload
             </label>
         </>
     );

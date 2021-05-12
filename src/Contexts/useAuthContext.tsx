@@ -1,16 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
-import { auth, provider, userCredentialType, userType } from "../firebase";
-
-export type AuthContextType = {
-    currentUser: null | userType;
-    signup: (email: string, password: string) => Promise<userCredentialType>;
-    login: (email: string, password: string) => Promise<userCredentialType>;
-    logout: () => Promise<void>;
-    forgotPassword: (email: string) => Promise<void>;
-    signupWithGoogle: () => Promise<userCredentialType>;
-    verifyEmail: () => Promise<void> | null;
-} | null;
+import { Auth, userType } from "../lib/firebase";
 
 const AuthContext = createContext<AuthContextType>(null);
 
@@ -20,26 +9,11 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const [currentUser, setCurrentUser] = useState<userType | null>(null);
+
     const [loading, setLoading] = useState(true);
 
-    const signup = (email: string, password: string) =>
-        auth.createUserWithEmailAndPassword(email, password);
-
-    const signupWithGoogle = () => auth.signInWithPopup(provider);
-
-    const login = (email: string, password: string) =>
-        auth.signInWithEmailAndPassword(email, password);
-
-    const logout = () => auth.signOut();
-
-    const forgotPassword = (email: string) =>
-        auth.sendPasswordResetEmail(email);
-
-    const verifyEmail = () =>
-        currentUser && currentUser.sendEmailVerification();
-
     useEffect(() => {
-        return auth.onAuthStateChanged((user) => {
+        return Auth.onAuthStateChanged((user) => {
             setCurrentUser(user);
             setLoading(false);
         });
@@ -47,12 +21,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
     const value = {
         currentUser,
-        signup,
-        login,
-        logout,
-        forgotPassword,
-        signupWithGoogle,
-        verifyEmail,
     };
 
     return (
@@ -61,3 +29,9 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         </AuthContext.Provider>
     );
 };
+
+// TYPE=======================================
+
+export type AuthContextType = {
+    currentUser: null | userType;
+} | null;
