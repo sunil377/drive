@@ -3,11 +3,11 @@ import { AuthProvider } from "./Contexts/useAuthContext";
 
 //component
 
-import Navbar from "./Components/Navbar/Navbar";
+import Navbar from "./Components/Navbar";
 
 //route
 
-import { ErrorBoundary } from "./Components/ErrorBoundary/ErrorBoundary";
+import { ErrorBoundary } from "./Components/ErrorBoundary";
 import PublicRoute from "./Components/Auth/PublicRoute";
 import PrivateRoute from "./Components/Auth/PrivateRoute";
 import { Switch } from "react-router";
@@ -18,7 +18,7 @@ import Signup from "./pages/Signup";
 const Login = lazy(() => import("./pages/Login"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const Profile = lazy(() => import("./pages/Profile"));
-const Dashboard = lazy(() => import("./Components/Drive/Dashboard"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 export default function App() {
     return (
@@ -38,18 +38,15 @@ export default function App() {
                             path="/forgotpassword"
                             component={ForgotPassword}
                         />
+                        <PrivateRoute
+                            path="/folders/:id"
+                            exact
+                            component={Dashboard}
+                        />
+                        <PrivateRoute path="/" exact component={Dashboard} />
                     </Switch>
                 </Suspense>
             </ErrorBoundary>
         </AuthProvider>
     );
 }
-
-//                         <PrivateRoute
-//                             path="/folders/:id"
-//                             exact
-//                             component={Dashboard}
-//                         />
-//                         <PrivateRoute path="/" exact component={Dashboard} />
-//                     </Switch>
-//                 </Suspense>

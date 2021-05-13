@@ -2,8 +2,7 @@ import { FormEvent, useState, FC, useRef, Suspense, lazy } from "react";
 import { useAuth } from "../../../Contexts/useAuthContext";
 
 import { useInputChange } from "../../../hooks/useInputChange";
-
-const ModalComponent = lazy(() => import("../../Modal/ModalComponent"));
+import { alertStyle, btnStylePrimary, btnStyleSuccess, cardStyle, inputStyle } from "../../../styles/style";
 
 const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
     const [error, setError] = useState("");
@@ -52,27 +51,33 @@ const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
         <>
             <button onClick={handleModalShow}>
                 <span className="sr-only">open Modal for Adding Folder</span>
-                add folder
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                </svg>
             </button>
 
             {showModal && (
-                <ModalComponent
-                    onSubmit={handleModalSubmit}
-                    onCancel={handleModalClose}
-                    loading={loading}
-                >
-                    <>
-                        <label htmlFor="folderName">Folder Name: </label>
+                <div className="w-full fixed mx-auto h-screen top-0 left-0 right-0 flex items-center justify-center bg-gray-600 bg-opacity-40">
+                    <form onSubmit={handleModalSubmit} className={cardStyle}>
+                        {
+                            error && <h1 className={alertStyle()}>{error}</h1>
+                        }
                         <input
-                            id="folderName"
                             type="text"
+                            aria-label="Enter Folder Name"
+                            placeholder="Enter Folder Name"
                             required
                             ref={folderRef}
                             {...folderName}
                             autoFocus={true}
+                            className={inputStyle}
                         />
-                    </>
-                </ModalComponent>
+                        <button type="submit" disabled={loading} className={btnStylePrimary}>
+                            Add Folder
+                          </button>
+                        <button onClick={handleModalClose} className={btnStyleSuccess}>Cancel</button>
+                    </form>
+                </div>
             )}
         </>
     );

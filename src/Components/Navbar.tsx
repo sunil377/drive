@@ -1,6 +1,7 @@
 import { NavLink, useHistory } from "react-router-dom";
-import { useAuth } from "../../Contexts/useAuthContext";
-import { Auth } from "../../lib/firebase";
+import { useAuth } from "../Contexts/useAuthContext";
+import { Auth } from "../lib/firebase";
+import { navBtnStyle } from "../styles/style"
 
 export default function Navbar() {
     const contextValue = useAuth();
@@ -19,11 +20,11 @@ export default function Navbar() {
 
     return (
         <div className="bg-gray-50 shadow-md">
-            <div className="container mx-auto ">
+            <div className="container mx-auto">
                 <div className="flex justify-between p-2 w-full">
                     <NavLink
                         to="/"
-                        className="py-2 px-4 rounded-md hover:bg-blue-600 hover:text-white"
+                        className={navBtnStyle}
                     >
                         <strong>Google Drive Clone</strong>
                     </NavLink>
@@ -33,14 +34,14 @@ export default function Navbar() {
                             <>
                                 <NavLink
                                     to="/profile"
-                                    className="py-2 px-2 rounded-md hover:bg-blue-600 hover:text-white"
+                                    className={navBtnStyle}
                                 >
                                     Profile
                                 </NavLink>
 
                                 <button
                                     onClick={handleClick}
-                                    className="py-2 px-2 rounded-md hover:bg-blue-600 hover:text-white"
+                                    className={navBtnStyle}
                                 >
                                     Logout
                                 </button>
@@ -49,13 +50,13 @@ export default function Navbar() {
                             <>
                                 <NavLink
                                     to="/signup"
-                                    className="py-2 px-2 rounded-md hover:bg-blue-600 hover:text-white"
+                                    className={navBtnStyle}
                                 >
                                     Sign Up
                                 </NavLink>
                                 <NavLink
                                     to="/login"
-                                    className="py-2 rounded-md hover:bg-blue-600 hover:text-white px-2"
+                                    className={navBtnStyle}
                                 >
                                     Log In
                                 </NavLink>

@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { Dispatch, SetStateAction } from "react";
 import { database, storage, userType } from "../../../lib/firebase";
-import { uploadFileType } from "../../Drive/AddFile/AddFile";
+import { uploadFileType } from "../../../pages/Dashboard";
 
 export const createFile: handleUploadFileChangeType = ({
     fileList,
@@ -69,7 +69,7 @@ export const createFile: handleUploadFileChangeType = ({
                                     url: downloadURL,
                                     path: currentPath,
                                     type,
-                                    userId: uid,
+                                    userId: "uid",
                                     createdAt: database.getCurrentTimeStamp(),
                                 })
                                 .then(() => handleRemove(uploadData.id))

@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import { useAuth } from "../Contexts/useAuthContext";
 import { useInputChange } from "../hooks/useInputChange";
 import { Auth } from "../lib/firebase";
+import { alertStyle, btnStyleSuccess, cardStyle, inputStyle } from "../styles/style";
 
 const ForgotPassword = () => {
     const [message, setMessage] = useState("");
@@ -30,17 +31,17 @@ const ForgotPassword = () => {
         }
     };
     return (
-        <div className="container">
-            <div className="flex flex-col items-center justify-center mt-24 shadow-lg bg-white max-w-xs sm:max-w-md mx-auto rounded-lg p-6 space-y-2">
+        <div className="container mt-24">
+            <div className={cardStyle}>
                 {error && (
-                    <div className="bg-red-400 w-full text-center rounded-md px-4 py-2 text-white">
-                        {error}
-                    </div>
+                    <h1 className={alertStyle()} >
+                        { error}
+                    </h1>
                 )}
                 {message && (
-                    <div className="bg-green-400 w-full text-center rounded-md px-4 py-2 text-white">
+                    <h1 className={alertStyle("bg-green-400")}>
                         {message}
-                    </div>
+                    </h1>
                 )}
                 <form
                     onSubmit={handleSubmit}
@@ -53,19 +54,19 @@ const ForgotPassword = () => {
                         required
                         autoFocus={true}
                         {...email}
-                        className="border w-full rounded-md  bg-white border-gray-300 py-2 px-4  outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400"
+                        className={inputStyle}
                     />
 
                     <button
                         disabled={loading}
                         type="submit"
-                        className="bg-green-400 text-white rounded-md py-2 px-4 hover:bg-white hover:text-green-400 border border-transparent hover:border-green-400"
+                        className={btnStyleSuccess + " w-full"}
                     >
                         Reset Password
                     </button>
                 </form>
             </div>
-        </div>
+        </div >
     );
 };
 

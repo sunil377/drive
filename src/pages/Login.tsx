@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import GoogleSignInComponent from "../Components/Auth/GoogleSignInComponent";
 import { useInputChange } from "../hooks/useInputChange";
 import { Auth } from "../lib/firebase";
+import { inputStyle, linkStyle, btnStylePrimary, btnStyleSuccess, alertStyle, cardStyle } from "../styles/style";
 
 export default function Login() {
     const email = useInputChange();
@@ -34,22 +35,22 @@ export default function Login() {
     };
 
     return (
-        <div className="container flex justify-center items-center  w-full mt-24">
-            <div className="max-w-xs sm:max-w-md w-full shadow-xl bg-white flex space-y-3 flex-col p-6 rounded-xl mx-auto">
+        <div className="container flex justify-center items-center mt-24">
+            <div className={cardStyle}>
                 {error && (
-                    <h1 className="text-white text-center bg-red-400 rounded-md p-2 font-semibold">
+                    <h1 className={alertStyle()}>
                         {error}
                     </h1>
                 )}
                 <form
-                    className="flex flex-col w-full space-y-3"
+                    className="flex flex-col space-y-3"
                     onSubmit={handleSubmit}
                 >
                     <input
                         type="email"
                         aria-label="enter email"
                         placeholder="Enter Email"
-                        className="border w-full rounded-md bg-white  border-gray-300 py-2 px-4  outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400"
+                        className={inputStyle}
                         {...email}
                         autoFocus
                         required
@@ -59,13 +60,13 @@ export default function Login() {
                         type="password"
                         aria-label="enter password"
                         placeholder="Enter Password"
-                        className="border w-full rounded-md  bg-white border-gray-300 py-2 px-4  outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400"
+                        className={inputStyle}
                         {...password}
                         required
                     />
                     <button
                         type="submit"
-                        className="border w-full border-transparent rounded-md  py-2 mx-auto  text-white bg-blue-600 hover:text-blue-600 hover:bg-white hover:border-blue-600 font-bold text-lg "
+                        className={btnStylePrimary}
                         disabled={loading}
                     >
                         Log In
@@ -74,7 +75,7 @@ export default function Login() {
                 <div className="text-center">
                     <Link
                         to="/forgotpassword"
-                        className="text-sm text-blue-500 outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 border border-transparent rounded-md p-2 hover:text-blue-900"
+                        className={linkStyle + " text-sm"}
                     >
                         Forgotten Password ?
                     </Link>
@@ -82,7 +83,7 @@ export default function Login() {
                 <hr />
                 <Link
                     to="/signup"
-                    className="bg-green-400 rounded-md py-2 px-4  text-white font-bold hover:bg-white hover:border-green-400 hover:text-green-500 border border-transparent mx-auto"
+                    className={btnStyleSuccess + " mx-auto"}
                 >
                     Create New Account
                 </Link>
