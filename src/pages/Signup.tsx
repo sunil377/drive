@@ -49,7 +49,7 @@ export default function Signup() {
         <div className="container mt-24 flex justify-center items-center">
             <div className={cardStyle}>
                 {error && (
-                    <h1 className={"hello"}>
+                    <h1 className={alertStyle()}>
                         {error}
                     </h1>
                 )}

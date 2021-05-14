@@ -1,7 +1,5 @@
 import { FormEvent, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-
-import GoogleSignInComponent from "../Components/Auth/GoogleSignInComponent";
 import { useInputChange } from "../hooks/useInputChange";
 import { Auth } from "../lib/firebase";
 import { inputStyle, linkStyle, btnStylePrimary, btnStyleSuccess, alertStyle, cardStyle } from "../styles/style";

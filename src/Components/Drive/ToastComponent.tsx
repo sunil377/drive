@@ -8,7 +8,7 @@ const ToastComponent: ToastComponentType = (props) => {
     const handleClose = () => {
         const del = window.confirm("Are you Sure");
         if (del) {
-            setUploadFiles((prev) => prev.filter((e) => e.id != id));
+            setUploadFiles((prev) => prev.filter((e) => e.id !== id));
             upLoadTask.cancel();
         }
     };

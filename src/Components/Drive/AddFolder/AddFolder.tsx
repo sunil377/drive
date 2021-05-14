@@ -1,7 +1,8 @@
-import { FormEvent, useState, FC, useRef, Suspense, lazy } from "react";
-import { useAuth } from "../../../Contexts/useAuthContext";
+import { FormEvent, useState, FC, useRef } from "react";
 
+import { useAuth } from "../../../Contexts/useAuthContext";
 import { useInputChange } from "../../../hooks/useInputChange";
+import { database } from "../../../lib/firebase";
 import { alertStyle, btnStylePrimary, btnStyleSuccess, cardStyle, inputStyle } from "../../../styles/style";
 
 const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
@@ -31,20 +32,38 @@ const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
         setLoading(true);
         setError("");
 
-        import("../../Api/Folder/createFolder").then((de) => {
-            if (contextValue?.currentUser) {
-                const { uid } = contextValue.currentUser;
-                de.createFolder(
-                    folderName.value,
-                    currentPath,
-                    uid,
-                    currentFolderId
+
+        if (contextValue?.currentUser) {
+            const { uid } = contextValue.currentUser;
+            database.folders
+                .where("path", "==", currentPath)
+                .where("userId", "==", uid)
+                .where("name", "==", folderName.value)
+                .get()
+                .then(({ docs }) =>
+                    docs.forEach((doc) => {
+                        if (doc.exists) {
+                            throw new Error(`*${folderName.value} folder name  already exists`);
+                        }
+                    })
                 )
-                    .then(handleModalClose)
-                    .catch(setError)
-                    .finally(() => setLoading(false));
-            }
-        });
+                .then(() => {
+                    database.folders
+                        .add({
+                            name: folderName.value,
+                            userId: uid,
+                            parentId: currentFolderId,
+                            path: currentPath,
+                            createdAt: database.getCurrentTimeStamp(),
+                        })
+                        .then(handleModalClose)
+                        .catch(setError);
+                })
+                .catch(setError)
+                .finally(() => setLoading(false));
+
+        }
+
     };
 
     return (

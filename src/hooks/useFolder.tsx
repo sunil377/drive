@@ -5,13 +5,13 @@ import { database } from "../lib/firebase";
 
 export const useFolder = () => {
     const [folders, setFolders] = useState<folderType[]>([]);
-    const [selectedFolder, setSelectedFolder] =
-        useState<selectedFolderType>(null);
+    const [selectedFolder, setSelectedFolder] = useState<selectedFolderType>(null);
     const [currentPath, setCurrentPath] = useState<currentPathType>([]);
     const [files, setFiles] = useState<fileType[]>([]);
 
     const contextValue = useAuth();
     const { id: currentId } = useParams<{ id: string }>();
+    const user = contextValue && contextValue.currentUser
 
     useEffect(() => {
         setFiles([]);
@@ -23,19 +23,20 @@ export const useFolder = () => {
         if (!currentId) {
             setCurrentPath([]);
         } else {
-            const i = currentPath.findIndex((val: string) => val === currentId);
-            const newPath =
-                i > -1
-                    ? currentPath.slice(0, i + 1)
-                    : [...currentPath, currentId];
-            setCurrentPath(newPath);
+            setCurrentPath(prev => {
+                const i = prev.findIndex((val: string) => val === currentId);
+                return i > -1
+                    ? prev.slice(0, i + 1)
+                    : [...prev, currentId];
+
+            })
         }
     }, [currentId]);
 
     useEffect(() => {
-        if (contextValue && contextValue.currentUser) {
+        if (user) {
             return database.folders
-                .where("userId", "==", contextValue.currentUser.uid)
+                .where("userId", "==", user.uid)
                 .where("parentId", "==", selectedFolder)
                 .orderBy("createdAt", "desc")
                 .onSnapshot(
@@ -60,12 +61,12 @@ export const useFolder = () => {
                     }
                 );
         }
-    }, [selectedFolder, contextValue && contextValue.currentUser]);
+    }, [selectedFolder, user]);
 
     useEffect(() => {
-        if (contextValue && contextValue.currentUser) {
+        if (user) {
             return database.files
-                .where("userId", "==", contextValue.currentUser.uid)
+                .where("userId", "==", user.uid)
                 .where("path", "==", currentPath)
                 .orderBy("createdAt", "desc")
                 .onSnapshot(
@@ -88,7 +89,7 @@ export const useFolder = () => {
                     }
                 );
         }
-    }, [currentPath, contextValue && contextValue.currentUser]);
+    }, [currentPath, user]);
 
     return {
         folders,

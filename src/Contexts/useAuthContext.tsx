@@ -9,7 +9,6 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const [currentUser, setCurrentUser] = useState<userType | null>(null);
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
