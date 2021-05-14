@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { Dispatch, SetStateAction } from "react";
 import { database, storage, userType } from "../lib/firebase";
 import { uploadFileType } from "../pages/Dashboard";
@@ -12,6 +11,7 @@ export default function handleCreateFile({
 }: handleUploadFileChangeType) {
 
   let path = currentPath.map((path) => path).join("/") + "/";
+
   const { name, type } = fileList[0];
   const { uid } = currentUser;
 
@@ -19,7 +19,7 @@ export default function handleCreateFile({
   const uplink = ref.put(fileList[0]);
 
   const uploadData = {
-    id: nanoid(),
+    id: Math.random().toString(),
     name,
     rate: 0,
     failed: false,
