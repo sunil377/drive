@@ -6,8 +6,9 @@ import { AuthProvider } from "./Contexts/useAuthContext";
 
 import Navbar from "./Components/Navbar";
 import { ErrorBoundary } from "./Components/ErrorBoundary";
-import PublicRoute from "./Components/Auth/PublicRoute";
-import PrivateRoute from "./Components/Auth/PrivateRoute";
+
+import PublicRoute from "./Guard/PublicRoute";
+import PrivateRoute from "./Guard/PrivateRoute";
 
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";

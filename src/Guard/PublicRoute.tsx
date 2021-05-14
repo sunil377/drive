@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Route, Redirect, RouteComponentProps } from "react-router-dom";
-import { useAuth } from "../../Contexts/useAuthContext";
+import { useAuth } from "../Contexts/useAuthContext";
 
-const PublicRoute: FC<{
+export default function PublicRoute({ component: Component, ...rest }: {
     component: FC<RouteComponentProps>;
     path: string;
-}> = ({ component: Component, ...rest }) => {
+}) {
     const contextValue = useAuth();
 
     return (
@@ -22,4 +22,3 @@ const PublicRoute: FC<{
     );
 };
 
-export default PublicRoute;

@@ -6,10 +6,10 @@ import { upLoadTask } from "../lib/firebase";
 import { useFolder } from "../hooks/useFolder";
 import { useAuth } from "../Contexts/useAuthContext";
 
-import AddFolder from "../Components/Drive/AddFolder/AddFolder";
-import ToastComponent from "../Components/Drive/ToastComponent";
-import File from "../Components/Drive/File";
-import { createFile } from "../Components/Api/File/createFile";
+import AddFolder from "../Components/AddFolder";
+import ProgressBar from "../Components/ProgressBar";
+
+import handleCreateFile from "../helper/handleCreateFile";
 
 
 export default function Dashboard(): JSX.Element {
@@ -23,7 +23,7 @@ export default function Dashboard(): JSX.Element {
         if (event.target.files &&
             event.target.files.length > 0 &&
             contextValue?.currentUser) {
-            createFile({
+            handleCreateFile({
                 fileList: event.target.files,
                 currentPath,
                 currentUser: contextValue.currentUser,
@@ -96,7 +96,7 @@ export default function Dashboard(): JSX.Element {
             {files.length > 0 &&
                 <div className="grid grid-cols-4 md:grid-cols-6 p-6 bg-white mt-10 rounded-md gap-2">
                     {files.map(({ id, name, url }) => (
-                        <File name={name} key={id} url={url} />
+                        <img src={url} alt={name} key={id} />
                     ))}
                 </div>}
 
@@ -104,7 +104,7 @@ export default function Dashboard(): JSX.Element {
 
                 <div className="fixed w-full max-w-xs right-0 bottom-0 bg-white shadow-md rounded-md p-5 flex-col space-y-2">
 
-                    {uploadFiles.map((e, i) => <ToastComponent
+                    {uploadFiles.map((e, i) => <ProgressBar
                         file={e}
                         key={e.id}
                         setUploadFiles={setUploadFiles} />

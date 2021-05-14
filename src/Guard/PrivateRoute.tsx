@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { Redirect, Route, RouteComponentProps } from "react-router-dom";
-import { useAuth } from "../../Contexts/useAuthContext";
+import { useAuth } from "../Contexts/useAuthContext";
 
-const PrivateRoute: FC<{
+export default function PrivateRoute({ component: Component, ...rest }: {
     component: FC<RouteComponentProps>;
     path: string;
     exact?: boolean;
-}> = ({ component: Component, ...rest }) => {
+}) {
     const contextUser = useAuth();
     return (
         <Route
@@ -22,4 +22,3 @@ const PrivateRoute: FC<{
     );
 };
 
-export default PrivateRoute;

@@ -1,9 +1,9 @@
 import { FormEvent, useState, FC, useRef } from "react";
 
-import { useAuth } from "../../../Contexts/useAuthContext";
-import { useInputChange } from "../../../hooks/useInputChange";
-import { database } from "../../../lib/firebase";
-import { alertStyle, btnStylePrimary, btnStyleSuccess, cardStyle, inputStyle } from "../../../styles/style";
+import { useAuth } from "../Contexts/useAuthContext";
+import { useInputChange } from "../hooks/useInputChange";
+import { database } from "../lib/firebase";
+import { alertStyle, btnStylePrimary, btnStyleSuccess, cardStyle, inputStyle } from "../styles/style";
 
 const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
     const [error, setError] = useState("");

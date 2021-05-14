@@ -1,7 +1,8 @@
-import { Dispatch, FC, SetStateAction } from "react";
-import { uploadFileType } from "../../pages/Dashboard";
+import { Dispatch, SetStateAction } from "react";
 
-const ToastComponent: ToastComponentType = (props) => {
+import { uploadFileType } from "../pages/Dashboard";
+
+export default function ProgressBar(props: ProgressBar) {
     const { file, setUploadFiles } = props;
     const { failed, paused, upLoadTask, id, name, rate } = file;
 
@@ -60,9 +61,8 @@ const ToastComponent: ToastComponentType = (props) => {
     );
 };
 
-export default ToastComponent;
 
-type ToastComponentType = FC<{
+interface ProgressBar {
     file: uploadFileType;
     setUploadFiles: Dispatch<SetStateAction<uploadFileType[]>>;
-}>;
+}
