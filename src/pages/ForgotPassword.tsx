@@ -10,7 +10,7 @@ const ForgotPassword = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const contextValue = useAuth();
+    const currentUser = useAuth();
     const email = useInputChange();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -18,7 +18,7 @@ const ForgotPassword = () => {
         setError("");
         setMessage("");
 
-        if (contextValue && email.value.trim() !== "") {
+        if (currentUser && email.value.trim() !== "") {
             setLoading(true);
             try {
                 await Auth.sendPasswordResetEmail(email.value);

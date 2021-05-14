@@ -4,11 +4,11 @@ import { Auth } from "../lib/firebase";
 import { navBtnStyle } from "../styles/style"
 
 export default function Navbar() {
-    const contextValue = useAuth();
+    const currentUser = useAuth();
     const history = useHistory();
 
     const handleClick = async () => {
-        if (contextValue?.currentUser) {
+        if (currentUser) {
             try {
                 await Auth.signOut();
                 history.push("/login");
@@ -30,7 +30,7 @@ export default function Navbar() {
                     </NavLink>
 
                     <div className="flex space-x-4 ">
-                        {contextValue?.currentUser ? (
+                        {currentUser ? (
                             <>
                                 <NavLink
                                     to="/profile"

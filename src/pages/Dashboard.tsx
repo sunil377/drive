@@ -15,18 +15,18 @@ import handleCreateFile from "../helper/handleCreateFile";
 export default function Dashboard(): JSX.Element {
     const { folders, selectedFolder, currentPath, files } = useFolder();
     const { state, pathname } = useLocation<null | { id: string; name: string; }[]>();
+    const currentUser = useAuth();
 
     const [uploadFiles, setUploadFiles] = useState<uploadFileType[]>([]);
-    const contextValue = useAuth();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         if (event.target.files &&
             event.target.files.length > 0 &&
-            contextValue?.currentUser) {
+            currentUser) {
             handleCreateFile({
                 fileList: event.target.files,
                 currentPath,
-                currentUser: contextValue.currentUser,
+                currentUser,
                 setUploadFiles,
             });
         }
@@ -116,7 +116,7 @@ export default function Dashboard(): JSX.Element {
     );
 }
 
-export type uploadFileType = {
+export interface uploadFileType {
     id: string;
     rate: number;
     name: string;

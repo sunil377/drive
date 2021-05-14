@@ -2,18 +2,19 @@ import { useState } from "react";
 import { useAuth } from "../Contexts/useAuthContext";
 
 export default function Profile() {
-    const contextValue = useAuth();
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const currentUser = useAuth();
 
     const handleVerifyEmail = async () => {
         setLoading(true);
         setError("");
         setMessage("");
-        if (contextValue) {
+        if (currentUser) {
             try {
-                await contextValue.currentUser?.sendEmailVerification();
+                await currentUser.sendEmailVerification();
                 setMessage("Check your Email inbox for further instructions");
             } catch ({ message }) {
                 setError(message);
@@ -42,10 +43,10 @@ export default function Profile() {
 
                 <div className="">
                     <strong className="text-blue-600"> Email: </strong>
-                    {contextValue?.currentUser?.email}
+                    {currentUser && currentUser.email}
                 </div>
 
-                {contextValue?.currentUser?.emailVerified ? (
+                {currentUser && currentUser.emailVerified ? (
                     <strong>Email verified</strong>
                 ) : (
                     <button

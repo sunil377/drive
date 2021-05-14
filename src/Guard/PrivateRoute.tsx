@@ -7,12 +7,12 @@ export default function PrivateRoute({ component: Component, ...rest }: {
     path: string;
     exact?: boolean;
 }) {
-    const contextUser = useAuth();
+    const currentUser = useAuth();
     return (
         <Route
             {...rest}
             render={(props) => {
-                return contextUser?.currentUser?.email ? (
+                return currentUser ? (
                     <Component {...props} />
                 ) : (
                     <Redirect to="/signup" />

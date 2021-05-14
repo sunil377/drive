@@ -4,7 +4,8 @@ import { Auth, userType } from "../lib/firebase";
 const AuthContext = createContext<AuthContextType>(null);
 
 export const useAuth = () => {
-    return useContext(AuthContext);
+    const user = useContext(AuthContext);
+    return user && user.currentUser;
 };
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {

@@ -9,9 +9,8 @@ export const useFolder = () => {
     const [currentPath, setCurrentPath] = useState<currentPathType>([]);
     const [files, setFiles] = useState<fileType[]>([]);
 
-    const contextValue = useAuth();
+    const currentUser = useAuth();
     const { id: currentId } = useParams<{ id: string }>();
-    const user = contextValue && contextValue.currentUser
 
     useEffect(() => {
         setFiles([]);
@@ -34,9 +33,9 @@ export const useFolder = () => {
     }, [currentId]);
 
     useEffect(() => {
-        if (user) {
+        if (currentUser) {
             return database.folders
-                .where("userId", "==", user.uid)
+                .where("userId", "==", currentUser.uid)
                 .where("parentId", "==", selectedFolder)
                 .orderBy("createdAt", "desc")
                 .onSnapshot(
@@ -61,12 +60,12 @@ export const useFolder = () => {
                     }
                 );
         }
-    }, [selectedFolder, user]);
+    }, [selectedFolder, currentUser]);
 
     useEffect(() => {
-        if (user) {
+        if (currentUser) {
             return database.files
-                .where("userId", "==", user.uid)
+                .where("userId", "==", currentUser.uid)
                 .where("path", "==", currentPath)
                 .orderBy("createdAt", "desc")
                 .onSnapshot(
@@ -89,7 +88,7 @@ export const useFolder = () => {
                     }
                 );
         }
-    }, [currentPath, user]);
+    }, [currentPath, currentUser]);
 
     return {
         folders,

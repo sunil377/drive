@@ -8,10 +8,10 @@ import { alertStyle, btnStylePrimary, btnStyleSuccess, cardStyle, inputStyle } f
 const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-
     const [showModal, setShowModal] = useState(false);
+
     const folderRef = useRef<HTMLInputElement>(null);
-    const contextValue = useAuth();
+    const currentUser = useAuth();
 
     const folderName = useInputChange();
 
@@ -33,11 +33,11 @@ const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
         setError("");
 
 
-        if (contextValue?.currentUser) {
-            const { uid } = contextValue.currentUser;
+        if (currentUser) {
+
             database.folders
                 .where("path", "==", currentPath)
-                .where("userId", "==", uid)
+                .where("userId", "==", currentUser.uid)
                 .where("name", "==", folderName.value)
                 .get()
                 .then(({ docs }) =>
@@ -51,7 +51,7 @@ const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
                     database.folders
                         .add({
                             name: folderName.value,
-                            userId: uid,
+                            userId: currentUser.uid,
                             parentId: currentFolderId,
                             path: currentPath,
                             createdAt: database.getCurrentTimeStamp(),

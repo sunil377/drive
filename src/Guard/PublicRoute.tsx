@@ -6,13 +6,13 @@ export default function PublicRoute({ component: Component, ...rest }: {
     component: FC<RouteComponentProps>;
     path: string;
 }) {
-    const contextValue = useAuth();
+    const currentUser = useAuth();
 
     return (
         <Route
             {...rest}
             render={(props) => {
-                return contextValue?.currentUser?.email ? (
+                return currentUser ? (
                     <Redirect to="/" />
                 ) : (
                     <Component {...props} />
