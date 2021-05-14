@@ -5,9 +5,10 @@ import { database } from "../lib/firebase";
 
 export const useFolder = () => {
     const [folders, setFolders] = useState<folderType[]>([]);
+    const [files, setFiles] = useState<fileType[]>([]);
     const [selectedFolder, setSelectedFolder] = useState<selectedFolderType>(null);
     const [currentPath, setCurrentPath] = useState<currentPathType>([]);
-    const [files, setFiles] = useState<fileType[]>([]);
+    const [error, setError] = useState("")
 
     const currentUser = useAuth();
     const { id: currentId } = useParams<{ id: string }>();
@@ -55,9 +56,7 @@ export const useFolder = () => {
                         });
                         setFolders(f);
                     },
-                    (err) => {
-                        console.log(err);
-                    }
+                    (err) => setError(err.message)
                 );
         }
     }, [selectedFolder, currentUser]);
@@ -83,9 +82,7 @@ export const useFolder = () => {
                         });
                         setFiles(f);
                     },
-                    (err) => {
-                        console.log(err);
-                    }
+                    (err) => setError(err.message)
                 );
         }
     }, [currentPath, currentUser]);
@@ -95,6 +92,7 @@ export const useFolder = () => {
         selectedFolder,
         currentPath,
         files,
+        error
     };
 };
 

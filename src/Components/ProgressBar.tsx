@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 import { uploadFileType } from "../pages/Dashboard";
 
-export default function ProgressBar(props: ProgressBar) {
+export default function ProgressBar(props: Progressbar) {
     const { file, setUploadFiles } = props;
     const { failed, paused, upLoadTask, id, name, rate } = file;
 
@@ -62,7 +62,7 @@ export default function ProgressBar(props: ProgressBar) {
 };
 
 
-interface ProgressBar {
+interface Progressbar {
     file: uploadFileType;
     setUploadFiles: Dispatch<SetStateAction<uploadFileType[]>>;
 }

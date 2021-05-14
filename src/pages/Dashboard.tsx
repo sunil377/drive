@@ -13,7 +13,7 @@ import handleCreateFile from "../helper/handleCreateFile";
 
 
 export default function Dashboard(): JSX.Element {
-    const { folders, selectedFolder, currentPath, files } = useFolder();
+    const { folders, selectedFolder, currentPath, files, error } = useFolder();
     const { state, pathname } = useLocation<null | { id: string; name: string; }[]>();
     const currentUser = useAuth();
 
@@ -31,8 +31,12 @@ export default function Dashboard(): JSX.Element {
             });
         }
     };
+
     return (
         <div className="container mx-auto mt-10">
+
+            {/* BreadCrumb*/}
+
             <div className="bg-white shadow-lg flex w-full justify-between items-center px-6 py-3 rounded-md">
                 <div className="flex-grow flex">
                     <Link to="/">Root</Link>
@@ -73,6 +77,9 @@ export default function Dashboard(): JSX.Element {
                         currentPath={currentPath} />
                 </div>
             </div>
+
+            {/* Folders */}
+
             {folders.length > 0 &&
                 <div className="bg-white mt-10 rounded-md grid grid-cols-4 gap-2 md:grid-cols-6 xl:grid-cols-8 p-6 shadow-md">
                     {folders.map(({ name, id }) => {
@@ -92,16 +99,22 @@ export default function Dashboard(): JSX.Element {
                             </Link>
                         );
                     })}
-                </div>}
+                </div>
+            }
+
+            {/* Files */}
+
             {files.length > 0 &&
                 <div className="grid grid-cols-4 md:grid-cols-6 p-6 bg-white mt-10 rounded-md gap-2">
                     {files.map(({ id, name, url }) => (
                         <img src={url} alt={name} key={id} />
                     ))}
-                </div>}
+                </div>
+            }
+
+            {/* progress bar container */}
 
             {uploadFiles.length > 0 &&
-
                 <div className="fixed w-full max-w-xs right-0 bottom-0 bg-white shadow-md rounded-md p-5 flex-col space-y-2">
 
                     {uploadFiles.map((e, i) => <ProgressBar
@@ -109,9 +122,8 @@ export default function Dashboard(): JSX.Element {
                         key={e.id}
                         setUploadFiles={setUploadFiles} />
                     )}
-
-                </div>}
-
+                </div>
+            }
         </div>
     );
 }
