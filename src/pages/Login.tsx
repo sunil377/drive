@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useInputChange } from "../hooks/useInputChange";
 import { Auth } from "../lib/firebase";
-import { inputStyle, linkStyle, btnStylePrimary, btnStyleSuccess, alertStyle, cardStyle } from "../styles/style";
+import style from "../styles/style";
 
 export default function Login() {
     const email = useInputChange();
@@ -33,10 +33,10 @@ export default function Login() {
     };
 
     return (
-        <div className="container flex justify-center items-center mt-24">
-            <div className={cardStyle}>
+        <div className="container mt-24">
+            <div className={style.card}>
                 {error && (
-                    <h1 className={alertStyle()}>
+                    <h1 className={style.alert}>
                         {error}
                     </h1>
                 )}
@@ -48,7 +48,7 @@ export default function Login() {
                         type="email"
                         aria-label="enter email"
                         placeholder="Enter Email"
-                        className={inputStyle}
+                        className={style.input}
                         {...email}
                         autoFocus
                         required
@@ -58,13 +58,13 @@ export default function Login() {
                         type="password"
                         aria-label="enter password"
                         placeholder="Enter Password"
-                        className={inputStyle}
+                        className={style.input}
                         {...password}
                         required
                     />
                     <button
                         type="submit"
-                        className={btnStylePrimary}
+                        className={style.btn + style.btnPrimary}
                         disabled={loading}
                     >
                         Log In
@@ -73,7 +73,7 @@ export default function Login() {
                 <div className="text-center">
                     <Link
                         to="/forgotpassword"
-                        className={linkStyle + " text-sm"}
+                        className={style.link + " text-sm "}
                     >
                         Forgotten Password ?
                     </Link>
@@ -81,7 +81,7 @@ export default function Login() {
                 <hr />
                 <Link
                     to="/signup"
-                    className={btnStyleSuccess + " mx-auto"}
+                    className={style.btn + style.btnSuccess + " mx-auto px-4 "}
                 >
                     Create New Account
                 </Link>

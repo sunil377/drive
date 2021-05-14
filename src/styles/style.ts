@@ -1,13 +1,15 @@
-export const navBtnStyle = "py-2 px-4 rounded-md hover:bg-blue-600 hover:text-white";
 
-export const inputStyle = "border rounded-md bg-white border-gray-300 py-2 px-4 outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400"
+const style = {
+  btn: " border border-transparent rounded-md py-2 text-white hover:bg-white font-bold disabled:opacity-50 disabled:text-white disabled:cursor-not-allowed ",
+  btnPrimary: " bg-blue-600 hover:text-blue-600 hover:border-blue-600 disabled:bg-blue-600 ",
+  btnSuccess: " bg-green-400 hover:text-green-400 hover:border-green-400 disabled:bg-green-400 ",
+  link: "  border border-transparent rounded-md px-2 text-blue-500 hover:text-blue-900 ",
+  alert: " text-white text-center rounded-md py-2 bg-red-400 ",
+  alertSuccess: " text-white text-center rounded-md py-2 bg-green-400 ",
+  outline: " outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 ",
+  input: " border border-gray-300 bg-white rounded-md py-2 px-4 w-full ",
+  navLink: "  hover:bg-blue-600 hover:text-white py-2 px-4 rounded-md ",
+  card: " flex flex-col shadow-lg bg-white max-w-xs sm:max-w-md mx-auto rounded-lg p-6 space-y-2 w-full "
+}
 
-export const btnStylePrimary = "border w-full border-transparent rounded-md py-2 text-white bg-blue-600 hover:text-blue-600 hover:bg-white hover:border-blue-600 font-bold text-lg"
-
-export const btnStyleSuccess = "bg-green-400 rounded-md py-2 px-4  text-white font-bold hover:bg-white hover:border-green-400 hover:text-green-500 border border-transparent"
-
-export const linkStyle ="text-blue-500 outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 border border-transparent rounded-md p-2 hover:text-blue-900"
-
-export const alertStyle = (e="bg-red-400") => `text-white text-center rounded-md py-2 ${e?? ""}`;
-
-export const cardStyle = "flex flex-col shadow-lg bg-white max-w-xs sm:max-w-md mx-auto rounded-lg p-6 space-y-2 w-full"
+export default style;

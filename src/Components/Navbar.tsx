@@ -1,7 +1,7 @@
 import { NavLink, useHistory } from "react-router-dom";
 import { useAuth } from "../Contexts/useAuthContext";
 import { Auth } from "../lib/firebase";
-import { navBtnStyle } from "../styles/style"
+import style from "../styles/style";
 
 export default function Navbar() {
     const currentUser = useAuth();
@@ -24,7 +24,7 @@ export default function Navbar() {
                 <div className="flex justify-between p-2 w-full">
                     <NavLink
                         to="/"
-                        className={navBtnStyle}
+                        className={style.navLink}
                     >
                         <strong>Google Drive Clone</strong>
                     </NavLink>
@@ -34,14 +34,14 @@ export default function Navbar() {
                             <>
                                 <NavLink
                                     to="/profile"
-                                    className={navBtnStyle}
+                                    className={style.navLink}
                                 >
                                     Profile
                                 </NavLink>
 
                                 <button
                                     onClick={handleClick}
-                                    className={navBtnStyle}
+                                    className={style.navLink}
                                 >
                                     Logout
                                 </button>
@@ -50,13 +50,13 @@ export default function Navbar() {
                             <>
                                 <NavLink
                                     to="/signup"
-                                    className={navBtnStyle}
+                                    className={style.navLink}
                                 >
                                     Sign Up
                                 </NavLink>
                                 <NavLink
                                     to="/login"
-                                    className={navBtnStyle}
+                                    className={style.navLink}
                                 >
                                     Log In
                                 </NavLink>

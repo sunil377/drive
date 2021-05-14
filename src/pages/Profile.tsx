@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../Contexts/useAuthContext";
+import style from "../styles/style";
 
 export default function Profile() {
     const [error, setError] = useState("");
@@ -25,37 +26,39 @@ export default function Profile() {
     };
 
     return (
-        <div className="container">
-            <div className="flex flex-col items-center justify-center mt-24 bg-white  max-w-xs sm:max-w-md mx-auto shadow-lg rounded-lg p-6 space-y-2">
+        <div className="container mt-24">
+            <div className={style.card}>
+
+
                 <h1 className="text-lg">
                     <strong>Profile</strong>
                 </h1>
-                {error && (
-                    <div className="bg-red-400 text-white py-2 px-4 rounded-md">
-                        {error}
-                    </div>
-                )}
-                {message && (
-                    <div className="bg-green-400 text-white py-2 px-4 rounded-md">
-                        {message}
-                    </div>
-                )}
-
-                <div className="">
+                <h1 className="">
                     <strong className="text-blue-600"> Email: </strong>
-                    {currentUser && currentUser.email}
-                </div>
+                    <em>{currentUser && currentUser.email}</em>
+                </h1>
 
                 {currentUser && currentUser.emailVerified ? (
                     <strong>Email verified</strong>
                 ) : (
                     <button
                         disabled={loading}
-                        className="bg-blue-600 px-4 py-2 text-white rounded-md hover:bg-white hover:text-blue-600 border border-transparent hover:border-blue-600"
+                        className={style.btn + style.btnPrimary}
                         onClick={handleVerifyEmail}
                     >
                         Verify Email
                     </button>
+                )}
+
+                {error && (
+                    <h1 className={style.alert}>
+                        {error}
+                    </h1>
+                )}
+                {message && (
+                    <h1 className={style.alertSuccess}>
+                        {message}
+                    </h1>
                 )}
             </div>
         </div>

@@ -1,10 +1,9 @@
 import { FormEvent, useState } from "react";
 
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../Contexts/useAuthContext";
 import { useInputChange } from "../hooks/useInputChange";
 import { Auth } from "../lib/firebase";
-import { alertStyle, btnStylePrimary, cardStyle, inputStyle, linkStyle } from "../styles/style";
+import style from "../styles/style";
 
 export default function Signup() {
     const email = useInputChange();
@@ -13,7 +12,7 @@ export default function Signup() {
 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const contextValue = useAuth();
+
     const history = useHistory();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -24,8 +23,7 @@ export default function Signup() {
         if (
             email.value.trim() &&
             password.value.trim() &&
-            confirmPassword.value.trim() &&
-            contextValue
+            confirmPassword.value.trim()
         ) {
             if (password.value !== confirmPassword.value) {
                 setLoading(false);
@@ -46,10 +44,10 @@ export default function Signup() {
     };
 
     return (
-        <div className="container mt-24 flex justify-center items-center">
-            <div className={cardStyle}>
+        <div className="container mt-24">
+            <div className={style.card}>
                 {error && (
-                    <h1 className={alertStyle()}>
+                    <h1 className={style.alert}>
                         {error}
                     </h1>
                 )}
@@ -64,7 +62,7 @@ export default function Signup() {
                         {...email}
                         autoFocus={true}
                         required
-                        className={inputStyle}
+                        className={style.input}
                     />
                     <input
                         type="password"
@@ -72,19 +70,19 @@ export default function Signup() {
                         required
                         aria-label="enter password"
                         placeholder="Enter Password"
-                        className={inputStyle}
+                        className={style.input}
                     />
                     <input
                         type="password"
                         aria-label="enter confirm password"
                         placeholder="Enter Confirm Password"
                         {...confirmPassword}
-                        className={inputStyle}
+                        className={style.input}
                     />
                     <button
                         disabled={loading}
                         type="submit"
-                        className={btnStylePrimary}
+                        className={style.btn + style.btnPrimary}
                     >
                         Signup
                     </button>
@@ -96,7 +94,7 @@ export default function Signup() {
                         </span>
                     <Link
                         to="/login"
-                        className={linkStyle}
+                        className={style.link}
                     >
                         Log In
                         </Link>

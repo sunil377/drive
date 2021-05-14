@@ -3,7 +3,7 @@ import { FormEvent, useState, FC, useRef } from "react";
 import { useAuth } from "../Contexts/useAuthContext";
 import { useInputChange } from "../hooks/useInputChange";
 import { database } from "../lib/firebase";
-import { alertStyle, btnStylePrimary, btnStyleSuccess, cardStyle, inputStyle } from "../styles/style";
+import style from "../styles/style";
 
 const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
     const [error, setError] = useState("");
@@ -77,9 +77,9 @@ const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
 
             {showModal && (
                 <div className="w-full fixed mx-auto h-screen top-0 left-0 right-0 flex items-center justify-center bg-gray-600 bg-opacity-40">
-                    <form onSubmit={handleModalSubmit} className={cardStyle}>
+                    <form onSubmit={handleModalSubmit} className={style.card}>
                         {
-                            error && <h1 className={alertStyle()}>{error}</h1>
+                            error && <h1 className={style.alert}>{error}</h1>
                         }
                         <input
                             type="text"
@@ -89,12 +89,12 @@ const AddFolder: AddFolderType = ({ currentFolderId, currentPath }) => {
                             ref={folderRef}
                             {...folderName}
                             autoFocus={true}
-                            className={inputStyle}
+                            className={style.input}
                         />
-                        <button type="submit" disabled={loading} className={btnStylePrimary}>
+                        <button type="submit" disabled={loading} className={style.btn + style.btnPrimary}>
                             Add Folder
                           </button>
-                        <button onClick={handleModalClose} className={btnStyleSuccess}>Cancel</button>
+                        <button onClick={handleModalClose} className={style.btn + style.btnSuccess}>Cancel</button>
                     </form>
                 </div>
             )}

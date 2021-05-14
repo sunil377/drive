@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 import { useAuth } from "../Contexts/useAuthContext";
 import { useInputChange } from "../hooks/useInputChange";
 import { Auth } from "../lib/firebase";
-import { alertStyle, btnStyleSuccess, cardStyle, inputStyle } from "../styles/style";
+import style from "../styles/style";
 
 const ForgotPassword = () => {
     const [message, setMessage] = useState("");
@@ -32,14 +32,14 @@ const ForgotPassword = () => {
     };
     return (
         <div className="container mt-24">
-            <div className={cardStyle}>
+            <div className={style.card}>
                 {error && (
-                    <h1 className={alertStyle()} >
+                    <h1 className={style.alert} >
                         { error}
                     </h1>
                 )}
                 {message && (
-                    <h1 className={alertStyle("bg-green-400")}>
+                    <h1 className={style.alertSuccess}>
                         {message}
                     </h1>
                 )}
@@ -54,13 +54,13 @@ const ForgotPassword = () => {
                         required
                         autoFocus={true}
                         {...email}
-                        className={inputStyle}
+                        className={style.input}
                     />
 
                     <button
                         disabled={loading}
                         type="submit"
-                        className={btnStyleSuccess + " w-full"}
+                        className={style.btn + style.btnSuccess}
                     >
                         Reset Password
                     </button>
