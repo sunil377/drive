@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { database, storage, userType } from "../lib/firebase";
-import { uploadFileType } from "../pages/Dashboard";
+import { uploadFileType } from "../types/types";
 
 
 export default function handleCreateFile({
@@ -8,7 +8,7 @@ export default function handleCreateFile({
   currentPath,
   currentUser,
   setUploadFiles,
-}: handleUploadFileChangeType) {
+}: arg) {
 
   let path = currentPath.map((path) => path).join("/") + "/";
 
@@ -87,7 +87,7 @@ export default function handleCreateFile({
   );
 };
 
-interface handleUploadFileChangeType {
+interface arg {
   fileList: FileList;
   currentPath: string[];
   currentUser: userType;
