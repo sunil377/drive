@@ -13,21 +13,17 @@ const ForgotPassword = () => {
 	const currentUser = useAuth();
 	const email = useInputChange();
 
-	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setError("");
-		setMessage("");
 
 		if (currentUser && email.value.trim() !== "") {
 			setLoading(true);
-			try {
-				await Auth.sendPasswordResetEmail(email.value);
-				setMessage("check your email inbox for further instruction");
-			} catch (err) {
-				setError(err.message);
-			} finally {
-				setLoading(false);
-			}
+			Auth.sendPasswordResetEmail(email.value)
+				.then(() =>
+					setMessage("check your email inbox for further instruction")
+				)
+				.catch((err) => setError(err.message))
+				.finally(() => setLoading(false));
 		}
 	};
 	return (
